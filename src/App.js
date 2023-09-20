@@ -1,7 +1,7 @@
 import './App.css';
 import TaskItem from './components/TaskItem.jsx';
 import TaskListStore from './store.js';
-import {addTaskStore} from './store.js';
+import { addTaskStore } from './store.js';
 
 function App() {
   let TaskItems = TaskListStore.map((TaskItemInfo) => {
@@ -18,13 +18,19 @@ function App() {
       e.target.parentNode.querySelector('input').value = '';
     }
   }
+  function inputButtonDown(e) {
+    if (e.key == "Enter" && e.target.value !='') {
+      addTaskStore(e.target.value);
+      e.target.value = '';
+    }
+  }
 
   return (
     <div className="App">
       <h1>Список задач</h1>
-      
+
       <div className='app__new-task'>
-        <input placeholder='Введи текст задачи'></input>
+        <input onKeyDown={inputButtonDown} placeholder='Введи текст задачи'></input>
         <button onClick={addTaskButtonClick} ><i className="fa-solid fa-plus"></i></button>
       </div>
 
